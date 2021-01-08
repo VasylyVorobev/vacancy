@@ -29,7 +29,7 @@
                             <div class="col-6 col-lg-8">
                               <a href="{{ vac.get_absolute_url }}" class="mb-1">{{ vac.title }}</a>
                               <p class="mb-1">
-                                <span class="mr-4">{{ vac.salary_max }}</span><a href="#" class="text-info">3 отклика</a>
+                                <span class="mr-4">{{ vac.salary_max }}</span><a href="#" class="text-info">{{ vac.application_set.count }} отклика</a>
                               </p>
                             </div>
                             <div class="col-6 col-lg-4 text-right">
