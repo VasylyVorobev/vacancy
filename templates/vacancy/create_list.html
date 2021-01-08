@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Список моих вакансий
+{% endblock %}
+
+{% block content %}
+     <div class="row mt-5">
+      <div class="col-12 col-lg-4">
+        <aside class="pt-3 pb-4 px-4 mb-5 card">
+          <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" href="{% url 'update_company_url' slug=request.user.company_set.first.slug %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link active" href="{% url 'create_vacancy_url' %}">2. Вакансии</a>
+          </div>
+        </aside>
+      </div>
+      <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body px-4 pb-4">
+            <section class="tab-pane fade show active">
+              <h2 class="h4 pt-2 pb-3">Вакансии</h2>
+              <!-- vacancy state 1 -->
+                {% if request.user.company_set.first  %}
+                    {% for vac in vacancy %}
+                        <div class="card mt-3">
+                        <div class="card-body px-4">
+                          <div class="row align-items-center">
+                            <div class="col-6 col-lg-8">
+                              <a href="{{ vac.get_absolute_url }}" class="mb-1">{{ vac.title }}</a>
+                              <p class="mb-1">
+                                <span class="mr-4">{{ vac.salary_max }}</span><a href="#" class="text-info">3 отклика</a>
+                              </p>
+                            </div>
+                            <div class="col-6 col-lg-4 text-right">
+                              <a href="{% url 'update_vacancy_url' slug=vac.slug %}" class="btn btn-outline-info">Изменить</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="mt-3">
+
+                        </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <a class="btn btn-outline-info" href="{% url 'create_vacancy_url' %}">Добавить вакансию</a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-primary" role="alert">
+                        У вас пока нет вакансий
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-outline-info" href="{% url 'create_vacancy_url' %}">Добавить вакансию</a>
+                    </div>
+                {% endif %}
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}

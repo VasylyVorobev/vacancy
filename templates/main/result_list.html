@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Список вакансий по критериям
+{% endblock %}
+{% block content %}
+    <section>
+      <h2 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>Все вакансии</strong></h2>
+      <p class="text-center pt-1">{{ result.count }} вакансий</p>
+      <div class="row mt-5">
+        <div class="col-12 col-lg-8 offset-lg-2 m-auto">
+            {% for vac in result.all %}
+              <div class="card mb-4">
+                <div class="card-body px-4">
+                  <div class="row">
+                    <div class="col-12 col-md-8 col-lg-9">
+                      <h2 class="h2 pb-2">{{ vac.title }}</h2>
+                      <p class="mb-2">
+                          {{ vac.skills }}
+                      </p>
+                      <p>От {{ vac.salary_min }} до {{ vac.salary_max}} руб.</p>
+                      <p class="text-muted pt-1">{{ vac.published_at|date:"F, d" }}</p>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
+                      <a href="{% url 'detail_vacancy_url' vac.slug %}"><img src="{{ vac.company.logo.url }}" width="130" height="80" alt=""></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                {% empty %}
+                    <h2 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;">Подходящих вакансий не найдено</h2>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
